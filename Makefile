@@ -16,7 +16,7 @@ elf:
 	i386-elf-ld -m elf_i386 -T linker.ld -o kernel-001 kernasm.o kernc.o
 
 qemu:
-	qemu-system-i386 -kernel kernel-001
+	qemu-system-i386 -full-screen -kernel kernel-001
 
 kernv:
 	v -o vkernel.c -cc clang -cflags "-ffreestanding" kernel.v

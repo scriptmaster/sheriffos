@@ -25,7 +25,8 @@ link: asm kernel.c
 	file build/kernel.elf
 
 qemu: link
-	qemu-system-i386 -full-screen -kernel build/kernel.elf
+	qemu-system-x86_64 -full-screen -kernel build/kernel.elf
+	#qemu-system-i386 -full-screen -kernel build/kernel.elf
 
 prepare:
 	mkdir -p 32b-kernel
