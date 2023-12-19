@@ -1,12 +1,12 @@
-ENTRY(_start)
+ENTRY(kernel_main)
 SECTIONS
 {
+    KERNEL_VMA = 1M;
     . = KERNEL_VMA;
 
     .text : AT(ADDR(.text) - KERNEL_VMA)
     {
         _code = .;
-        *(.text)
         *(.rodata*)
         . = ALIGN(4096);
     }

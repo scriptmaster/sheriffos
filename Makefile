@@ -8,11 +8,9 @@ kernasm:
 	nasm -f elf32 kernel.asm -o kernasm.o
 
 kernc:
-	#gcc -m32 -c kernel.c -o kernc.o
 	i386-elf-gcc -m32 -c kernel.c -o kernc.o
 
 elf:
-	#ld -m elf_i386 -T linker.ld -o kernel kernasm.o kernc.o
 	i386-elf-ld -m elf_i386 -T linker.ld -o kernel-001 kernasm.o kernc.o
 
 qemu:

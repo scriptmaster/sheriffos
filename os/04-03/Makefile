@@ -56,3 +56,32 @@ kerneliso:
 qemuiso: kerneliso
 	ls -lah build/kernel.iso
 	qemu-system-x86_64 -full-screen -cdrom build/kernel.iso
+
+
+# Exp with v
+#------------
+
+link2: asm kernel.c
+	i386-elf-ld -T 32b-kernel/kernel.ld -o build/kernel.elf \
+		build/multiboot_header.o build/multiboot_entry.o \
+		build/cpuid_supported.o build/cpuid.o \
+		vkernel.o build/kernel.o
+	ls -lah build/kernel.elf
+	file build/kernel.elf
+
+link64:
+	clang -target x86_64-linux-gnu -ffreestanding -Wall -Wextra -c 32b-kernel/kernel.c -o build/kernel64.o
+
+	nasm 32b-kernel/multiboot_header.asm -o build/multiboot_header64.o
+	nasm 32b-kernel/multiboot_entry.asm -o build/multiboot_entry64.o
+	# nasm -felf32 32b-kernel/cpuid_supported.asm -o build/cpuid_supported.o
+	# nasm -felf32 32b-kernel/cpuid.asm -o build/cpuid.o
+
+	cp ../../vinix.elf .
+	dd if=/dev/zero of="vinix.elf" bs=1 seek=16 conv=notrunc count=2 
+	x86_64-elf-ld -r -T 32b-kernel/kernel.ld -o build/kernel.elf \
+		build/multiboot_header64.o build/multiboot_entry64.o \
+		build/cpuid_supported.o build/cpuid.o \
+		vinix.elf build/kernel64.o
+	ls -lah build/kernel.elf
+	file build/kernel.elf
