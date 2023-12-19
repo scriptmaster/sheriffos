@@ -1,13 +1,14 @@
 bits 32  ;nasm directive - 32 bit
         section .text
-         ;multiboot spec
-         align 4
-         dd 0x1BADB002 ;magic
-         dd 0x00 ;flags
-         dd - (0x1BADB002 + 0x00) ;checksum
-         
-        global start ;to set symbols from source code as global 
-        extern main__main ;main__main is the function in C file
+        ;multiboot spec
+        align 4
+        dd 0x1BADB002 ;magic
+        dd 0x00 ;flags
+        dd - (0x1BADB002 + 0x00) ;checksum
+
+        extern main__main ; this is the function in C file
+
+        global start ;entry point for bootloader
 
         start:
         cli ;clear interrupts-- to diable interrupts

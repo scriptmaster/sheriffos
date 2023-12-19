@@ -10,7 +10,7 @@ void main__main(void)
     while(j < 80 * 25 * 2) 
     {
         videomemptr[j] = ' '; //blank character
-        videomemptr[j+1] = 0x01; //attribute-byte 0 - black background 2 - green font
+        videomemptr[j+1] = 0x0b; //attribute-byte 0 - black background 2 - green font
         j = j+2;
     }
     j = 0;
@@ -19,7 +19,7 @@ void main__main(void)
     while(string[j] != '\0')
     {
         videomemptr[i] = string[j];
-        videomemptr[i+1] = 0x02;
+        videomemptr[i+1] = 0x0e;
         ++j;
         i = i+2;
     }
