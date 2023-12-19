@@ -15,7 +15,7 @@ link:
 	file build/kernel.elf
 
 qemu:
-	echo qemu
+	qemu-system-i386 -full-screen -kernel build/kernel.elf
 
 prepare:
 	mkdir -p 32b-kernel
